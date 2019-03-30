@@ -28,6 +28,7 @@ public class HelloController {
     @RequestMapping("/sleep")
     public String sleep(){
     	try {
+    		//int time = 100;
     		int time = ThreadLocalRandom.current().nextInt(6000);
     		log.info("call in will sleep: {}", time);
 			Thread.sleep(time);
