@@ -5,6 +5,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lyyljs.cloud.producer.config.ServerConfig;
 
 @RestController
+@RefreshScope
 @RequestMapping("/hello")
 public class HelloController {
 	
@@ -19,6 +22,14 @@ public class HelloController {
 	
 	@Autowired
 	private ServerConfig config;
+	
+	@Value("${hello.msg}")
+	private String helloMsg;
+	
+	@RequestMapping("/say/hello")
+	public String sayHello() {
+		return helloMsg;
+	}
 	
     @RequestMapping("/hello")
     public String index(@RequestParam String name) {
